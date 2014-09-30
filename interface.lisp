@@ -806,13 +806,13 @@ TARGET-BUCKET with a key prefix of TARGET-PREFIX."
     (case vhost
       (:cname
        (format nil "http~@[s~*~]://~A/~@[~A~]?~@[~A&~]~A"
-               ssl bucket (url-encode key) sub-resource parameters))
+               ssl bucket key sub-resource parameters))
       (:amazon
        (format nil "http~@[s~*~]://~A.s3.amazonaws.com/~@[~A~]?~@[~A&~]~A"
-               ssl bucket (url-encode key) sub-resource parameters))
+               ssl bucket key sub-resource parameters))
       ((nil)
        (format nil "http~@[s~*~]://s3.amazonaws.com/~@[~A/~]~@[~A~]?~@[~A&~]~A"
-               ssl (url-encode bucket) (url-encode key) sub-resource
+               ssl bucket key sub-resource
                    parameters)))))
 
 
