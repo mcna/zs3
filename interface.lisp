@@ -576,8 +576,8 @@ users. Otherwise, a default ACL is present on the new object.
                         (values nil (request-error-response condition)))))))
     (let ((headers
            (parameters-alist :copy-source (format nil "~A/~A"
-                                                  (url-encode (name from-bucket))
-                                                  (url-encode (name from-key)))
+                                                  (name from-bucket)
+                                                  (name from-key))
                              :storage-class storage-class
                              :metadata-directive
                              (if metadata-supplied-p "REPLACE" "COPY")
@@ -779,13 +779,13 @@ TARGET-BUCKET with a key prefix of TARGET-PREFIX."
   (ecase vhost
     (:cname
      (format nil "http~@[s~*~]://~A/~@[~A~]~@[?~A~]"
-             ssl bucket (url-encode key) sub-resource))
+             ssl bucket key sub-resource))
     (:amazon
      (format nil "http~@[s~*~]://~A.s3.amazonaws.com/~@[~A~]~@[?~A~]"
-             ssl bucket (url-encode key) sub-resource))
+             ssl bucket key sub-resource))
     ((nil)
      (format nil "http~@[s~*~]://s3.amazonaws.com/~@[~A/~]~@[~A~]~@[?~A~]"
-             ssl (url-encode bucket) (url-encode key) sub-resource))))
+             ssl bucket key sub-resource))))
 
 (defun authorized-url (&key bucket key vhost expires ssl sub-resource
                        ((:credentials *credentials*) *credentials*))
